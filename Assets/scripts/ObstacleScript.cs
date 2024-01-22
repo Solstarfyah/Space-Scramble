@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ObstacleScript : MonoBehaviour
 {
-    float speed = 10f;
+    public float speed = 10f;
+    Rigidbody2D rb;
 
-
-    void Update()
+    void Start()
     {
-        transform.position += transform.forward * Time.deltaTime * speed;
+        rb = this.GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(-speed, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D collisionInfo)
