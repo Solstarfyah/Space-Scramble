@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd22e6f48fb581d4b9e8c232c173b1fc, type: 3}
+  m_Name: New Player Data
+  m_EditorClassIdentifier: 
+  gravityStrength: -40
+  gravityScale: 4.0774717
+  fallGravityMult: 1
+  maxFallSpeed: 100
+  fastFallGravityMult: 2
+  maxFastFallSpeed: 200
+  runMaxSpeed: 50
+  runAcceleration: 2
+  runAccelAmount: 2
+  runDecceleration: 1
+  runDeccelAmount: 1
+  accelInAir: 0.33
+  deccelInAir: 0.33
+  doConserveMomentum: 1
+  jumpHeight: 5
+  jumpTimeToApex: 0.5
+  jumpForce: 20
+  jumpCutGravityMult: 1.25
+  jumpHangGravityMult: 0.55
+  jumpHangTimeThreshold: 2
+  jumpHangAccelerationMult: 1
+  jumpHangMaxSpeedMult: 2
+  wallJumpForce: {x: 10, y: 1}
+  wallJumpRunLerp: 0.57
+  wallJumpTime: 1.5
+  doTurnOnWallJump: 1
+  slideSpeed: 10
+  slideAccel: 2
+  coyoteTime: 0.182
+  jumpInputBufferTime: 0.083
