@@ -5,10 +5,11 @@ using UnityEngine;
 public class ObstacleScript : MonoBehaviour
 {
     public float speed = 10f;
+    public Rigidbody2D rb;
 
-    void Start()
+    void Awake()
     {
-        transform.position += transform.up * Time.deltaTime * speed;
+        rb.velocity = new Vector2(-speed, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D collisionInfo)
