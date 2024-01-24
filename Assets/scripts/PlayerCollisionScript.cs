@@ -13,24 +13,26 @@ public class PlayerCollisionScript : MonoBehaviour
     public Transform LaunchOffset;
     public ObstacleScript ObstaclePrefab;
     public float randNumRng;
+    public float tIncrement;
 
     void Start()
     {
-        next_spawn_time = Time.time + 2.0f;
+        next_spawn_time = Time.time + tIncrement;
     }
 
     void Update()
     {
-        float y = LaunchOffset.position.y + UnityEngine.Random.Range(-transform.position.y, randNumRng);
-        Vector3 pos = LaunchOffset.position + new Vector3(0, y, 0);
 
         if (Time.time > next_spawn_time)
         {
+            float y = LaunchOffset.position.y + UnityEngine.Random.Range((-2 * LaunchOffset.position.y - 1), randNumRng);
+            UnityEngine.Debug.Log(Convert.ToString(y));
+            Vector3 pos = LaunchOffset.position + new Vector3(0, y, 0);
             //do stuff here (like instantiate)
             Instantiate(ObstaclePrefab, pos, transform.rotation);
 
             //increment next_spawn_time
-            next_spawn_time += 5.0f;
+            next_spawn_time += tIncrement;
         }
     }
     
