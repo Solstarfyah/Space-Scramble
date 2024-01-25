@@ -812,10 +812,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1559855896}
   - component: {fileID: 1559855895}
-  - component: {fileID: 1559855897}
+  - component: {fileID: 1559855900}
+  - component: {fileID: 1559855901}
   - component: {fileID: 1559855899}
   - component: {fileID: 1559855898}
-  - component: {fileID: 1559855900}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -893,27 +893,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1559855897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559855894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 557a96b7ea045da4a8de5743a20467a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: e8450309c9ace924d8abf433e05efeb7, type: 2}
-  _groundCheckPoint: {fileID: 266415767}
-  _groundCheckSize: {x: 1, y: 0.03}
-  _frontWallCheckPoint: {fileID: 639890678}
-  _backWallCheckPoint: {fileID: 1119916602}
-  _wallCheckSize: {x: 0.25, y: 2}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!70 &1559855898
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -992,3 +971,51 @@ MonoBehaviour:
   ObstaclePrefab: {fileID: 6652296492959344933, guid: 04e255ee13e08cd4d88ab491d5e0fcb5, type: 3}
   randNumRng: 3
   tIncrement: 0.5
+--- !u!114 &1559855901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559855894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616054e5a6e99d44f8dec31e6106b2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundCheckPoint: {fileID: 266415767}
+  _groundCheckSize: {x: 0.75, y: 0.1}
+  _frontWallCheckPoint: {fileID: 639890678}
+  _backWallCheckPoint: {fileID: 1119916602}
+  _wallCheckSize: {x: 0.2, y: 2}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  gravityStrength: -125
+  gravityScale: 12.7421
+  fallGravityMult: 3
+  maxFallSpeed: 200
+  fastFallGravityMult: 2
+  maxFastFallSpeed: 400
+  runMaxSpeed: 200
+  runAcceleration: 3
+  runAccelAmount: 0.75
+  runDecceleration: 2
+  runDeccelAmount: 0.5
+  accelInAir: 0.52
+  deccelInAir: 0.37
+  doConserveMomentum: 1
+  jumpHeight: 10
+  jumpTimeToApex: 0.4
+  jumpForce: 50
+  jumpCutGravityMult: 3
+  jumpHangGravityMult: 0.36
+  jumpHangTimeThreshold: 6
+  jumpHangAccelerationMult: 0.5
+  jumpHangMaxSpeedMult: 2
+  wallJumpForce: {x: 2, y: 10}
+  wallJumpRunLerp: 0.13
+  wallJumpTime: 1.5
+  doTurnOnWallJump: 1
+  coyoteTime: 0.093
+  jumpInputBufferTime: 0.103
