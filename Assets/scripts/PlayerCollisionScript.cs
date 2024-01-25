@@ -26,7 +26,6 @@ public class PlayerCollisionScript : MonoBehaviour
         if (Time.time > next_spawn_time)
         {
             float y = LaunchOffset.position.y + UnityEngine.Random.Range((-2 * LaunchOffset.position.y - 1), randNumRng);
-            UnityEngine.Debug.Log(Convert.ToString(y));
             Vector3 pos = LaunchOffset.position + new Vector3(0, y, 0);
             //do stuff here (like instantiate)
             Instantiate(ObstaclePrefab, pos, transform.rotation);
