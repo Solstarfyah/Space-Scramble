@@ -74,7 +74,7 @@ public class CombatTypeSystem : MonoBehaviour
                 canFire = false;
                 blastCD = 0;
                 Instantiate(blastPrefab, blastOffset.position, Quaternion.identity);
-                rb.AddForce(rotation * force, ForceMode2D.Impulse);
+                rb.AddForce(-rotation * force, ForceMode2D.Impulse);
                 pFuelBar -= 1;
             }
         }
@@ -120,7 +120,7 @@ public class CombatTypeSystem : MonoBehaviour
             if (collisionInfo.collider.name == "ObstacleBase(Clone)")
             {
                 rb.AddForce(Vector2.up * pForce, ForceMode2D.Impulse);
-                pFuelBar += 1;
+                pFuelBar += 10;
             }
         }
     }

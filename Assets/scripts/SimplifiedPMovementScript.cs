@@ -53,7 +53,7 @@ public class SimplifiedPMovementScript : MonoBehaviour
     [Range(0f, 1)] public float accelInAir; //Multipliers applied to acceleration rate when airborne.
     [Range(0f, 1)] public float deccelInAir;
     [Space(5)]
-    public bool doConserveMomentum = true;
+    public bool dontConserveMomentum = true;
 
     [Space(20)]
 
@@ -243,13 +243,13 @@ public class SimplifiedPMovementScript : MonoBehaviour
         }
         #endregion
 
-        #region Conserve Momentum
+        #region Don't Conserve Momentum
         //We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
-        if (doConserveMomentum && Mathf.Abs(RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
+        if (dontConserveMomentum && Mathf.Abs(RB.velocity.x) > Mathf.Abs(targetSpeed) && Mathf.Sign(RB.velocity.x) == Mathf.Sign(targetSpeed) && Mathf.Abs(targetSpeed) > 0.01f && LastOnGroundTime < 0)
         {
             //Prevent any deceleration from happening, or in other words conserve are current momentum
             //You could experiment with allowing for the player to slightly increae their speed whilst in this "state"
-            accelRate = 0;
+            accelRate = -10;
         }
         #endregion
 
