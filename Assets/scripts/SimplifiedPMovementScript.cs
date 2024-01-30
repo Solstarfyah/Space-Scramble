@@ -8,18 +8,11 @@ public class SimplifiedPMovementScript : MonoBehaviour
 
     public bool IsFacingRight { get; private set; }
     public bool IsJumping { get; private set; }
-    public bool IsWallJumping { get; private set; }
 
     public float LastOnGroundTime { get; private set; }
-    public float LastOnWallTime { get; private set; }
-    public float LastOnWallRightTime { get; private set; }
-    public float LastOnWallLeftTime { get; private set; }
 
     private bool _isJumpCut;
     private bool _isJumpFalling;
-
-    private float _wallJumpStartTime;
-    private int _lastWallJumpDir;
 
     private Vector2 _moveInput;
     public float LastPressedJumpTime { get; private set; }
@@ -28,9 +21,6 @@ public class SimplifiedPMovementScript : MonoBehaviour
     [SerializeField] private Transform _groundCheckPoint;
     [SerializeField] private Vector2 _groundCheckSize = new Vector2(0.49f, 0.03f);
     [Space(5)]
-    [SerializeField] private Transform _frontWallCheckPoint;
-    [SerializeField] private Transform _backWallCheckPoint;
-    [SerializeField] private Vector2 _wallCheckSize = new Vector2(0.5f, 1f);
 
     [Header("Layers & Tags")]
     [SerializeField] private LayerMask _groundLayer;
@@ -71,21 +61,12 @@ public class SimplifiedPMovementScript : MonoBehaviour
     public float jumpHeight; //Height of the player's jump
     public float jumpTimeToApex; //Time between applying the jump force and reaching the desired jump height. These values also control the player's gravity and jump force.
     [HideInInspector] public float jumpForce; //The actual force applied (upwards) to the player when they jump.
-
-    [Header("Both Jumps")]
     public float jumpCutGravityMult; //Multiplier to increase gravity if the player releases thje jump button while still jumping
     [Range(0f, 1)] public float jumpHangGravityMult; //Reduces gravity while close to the apex (desired max height) of the jump
     public float jumpHangTimeThreshold; //Speeds (close to 0) where the player will experience extra "jump hang". The player's velocity.y is closest to 0 at the jump's apex (think of the gradient of a parabola or quadratic function)
     [Space(0.5f)]
     public float jumpHangAccelerationMult;
     public float jumpHangMaxSpeedMult;
-
-    [Header("Wall Jump")]
-    public Vector2 wallJumpForce; //The actual force (this time set by us) applied to the player when wall jumping.
-    [Space(5)]
-    [Range(0f, 1f)] public float wallJumpRunLerp; //Reduces the effect of player's movement while wall jumping.
-    [Range(0f, 1.5f)] public float wallJumpTime; //Time after wall jumping the player's movement is slowed for.
-    public bool doTurnOnWallJump; //Player will rotate to face wall jumping direction
 
     [Space(20)]
 
@@ -110,9 +91,6 @@ public class SimplifiedPMovementScript : MonoBehaviour
     {
         #region TIMERS
         LastOnGroundTime -= Time.deltaTime;
-        LastOnWallTime -= Time.deltaTime;
-        LastOnWallRightTime -= Time.deltaTime;
-        LastOnWallLeftTime -= Time.deltaTime;
         #endregion
 
         #region INPUT HANDLER
@@ -146,19 +124,6 @@ public class SimplifiedPMovementScript : MonoBehaviour
             {
                 LastOnGroundTime = coyoteTime; //if so sets the lastGrounded to coyoteTime
             }
-
-            //Right Wall Check
-            if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)
-                    || (Physics2D.OverlapBox(_backWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && !IsFacingRight)) && !IsWallJumping)
-                LastOnWallRightTime = coyoteTime;
-
-            //Right Wall Check
-            if (((Physics2D.OverlapBox(_frontWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && !IsFacingRight)
-                || (Physics2D.OverlapBox(_backWallCheckPoint.position, _wallCheckSize, 0, _groundLayer) && IsFacingRight)) && !IsWallJumping)
-                LastOnWallLeftTime = coyoteTime;
-
-            //Two checks needed for both left and right walls since whenever the play turns the wall checkPoints swap sides
-            LastOnWallTime = Mathf.Max(LastOnWallLeftTime, LastOnWallRightTime);
         }
         #endregion
 
@@ -167,16 +132,10 @@ public class SimplifiedPMovementScript : MonoBehaviour
         {
             IsJumping = false;
 
-            if (!IsWallJumping)
-                _isJumpFalling = true;
         }
 
-        if (IsWallJumping && Time.time - _wallJumpStartTime > wallJumpTime)
-        {
-            IsWallJumping = false;
-        }
 
-        if (LastOnGroundTime > 0 && !IsJumping && !IsWallJumping)
+        if (LastOnGroundTime > 0 && !IsJumping)
         {
             _isJumpCut = false;
 
@@ -188,22 +147,9 @@ public class SimplifiedPMovementScript : MonoBehaviour
         if (CanJump() && LastPressedJumpTime > 0)
         {
             IsJumping = true;
-            IsWallJumping = false;
             _isJumpCut = false;
             _isJumpFalling = false;
             Jump();
-        }
-        //WALL JUMP
-        else if (CanWallJump() && LastPressedJumpTime > 0)
-        {
-            IsWallJumping = true;
-            IsJumping = false;
-            _isJumpCut = false;
-            _isJumpFalling = false;
-            _wallJumpStartTime = Time.time;
-            _lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
-
-            WallJump(_lastWallJumpDir);
         }
         #endregion
 
@@ -222,7 +168,7 @@ public class SimplifiedPMovementScript : MonoBehaviour
             SetGravityScale(gravityScale * jumpCutGravityMult);
             RB.velocity = new Vector2(RB.velocity.x, Mathf.Max(RB.velocity.y, -maxFallSpeed));
         }
-        else if ((IsJumping || IsWallJumping || _isJumpFalling) && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
+        else if ((IsJumping || _isJumpFalling) && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
         {
             SetGravityScale(gravityScale * jumpHangGravityMult);
         }
@@ -243,11 +189,7 @@ public class SimplifiedPMovementScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Handle Run
-        if (IsWallJumping)
-            Run(wallJumpRunLerp);
-        else
-            Run(1);
+        Run(1);
 
     }
 
@@ -260,7 +202,7 @@ public class SimplifiedPMovementScript : MonoBehaviour
 
     public void OnJumpUpInput()
     {
-        if (CanJumpCut() || CanWallJumpCut())
+        if (CanJumpCut())
             _isJumpCut = true;
     }
     #endregion
@@ -294,7 +236,7 @@ public class SimplifiedPMovementScript : MonoBehaviour
 
         #region Add Bonus Jump Apex Acceleration
         //Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-        if ((IsJumping || IsWallJumping || _isJumpFalling) && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
+        if ((IsJumping || _isJumpFalling) && Mathf.Abs(RB.velocity.y) < jumpHangTimeThreshold)
         {
             accelRate *= jumpHangAccelerationMult;
             targetSpeed *= jumpHangMaxSpeedMult;
@@ -356,30 +298,6 @@ public class SimplifiedPMovementScript : MonoBehaviour
         RB.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         #endregion
     }
-
-    private void WallJump(int dir)
-    {
-        //Ensures we can't call Wall Jump multiple times from one press
-        LastPressedJumpTime = 0;
-        LastOnGroundTime = 0;
-        LastOnWallRightTime = 0;
-        LastOnWallLeftTime = 0;
-
-        #region Perform Wall Jump
-        Vector2 force = new Vector2(wallJumpForce.x, wallJumpForce.y);
-        force.x *= dir; //apply force in opposite direction of wall
-
-        if (Mathf.Sign(RB.velocity.x) != Mathf.Sign(force.x))
-            force.x -= RB.velocity.x;
-
-        if (RB.velocity.y < 0) //checks whether player is falling, if so we subtract the velocity.y (counteracting force of gravity). This ensures the player always reaches our desired jump force or greater
-            force.y -= RB.velocity.y;
-
-        //Unlike in the run we want to use the Impulse mode.
-        //The default mode will apply are force instantly ignoring masss
-        RB.AddForce(force, ForceMode2D.Impulse);
-        #endregion
-    }
     #endregion
 
     #region CHECK METHODS
@@ -394,20 +312,9 @@ public class SimplifiedPMovementScript : MonoBehaviour
         return LastOnGroundTime > 0 && !IsJumping;
     }
 
-    private bool CanWallJump()
-    {
-        return LastPressedJumpTime > 0 && LastOnWallTime > 0 && LastOnGroundTime <= 0 && (!IsWallJumping ||
-             (LastOnWallRightTime > 0 && _lastWallJumpDir == 1) || (LastOnWallLeftTime > 0 && _lastWallJumpDir == -1));
-    }
-
     private bool CanJumpCut()
     {
         return IsJumping && RB.velocity.y > 0;
-    }
-
-    private bool CanWallJumpCut()
-    {
-        return IsWallJumping && RB.velocity.y > 0;
     }
 
     #endregion
@@ -417,9 +324,6 @@ public class SimplifiedPMovementScript : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(_frontWallCheckPoint.position, _wallCheckSize);
-        Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
     }
     #endregion
 
