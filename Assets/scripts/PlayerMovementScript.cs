@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
 
-        rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+        // rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
 
         if (isJumping)
         {
@@ -49,12 +49,17 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ProcessInputs();
-        Animate();
+        // Animate();
     }
 
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(gameObject.transform.position, checkRadius, groundObjects);
+        if (isGrounded)
+        {
+            jumpCount = maxJumpCount;
+        }
+
         Move(); // better for physics 
     }
 
@@ -66,9 +71,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void ProcessInputs()
     {
-        moveDirection = Input.GetAxis("Horizontal"); // input player movement (LOCKED TO X AXIS) 
-
-        if ((/*(Input.GetKeyDown(KeyCode.Space) ||*/ (Input.GetKeyDown(KeyCode.W)) && isGrounded) & jumpCount > 0)
+        // moveDirection = Input.GetAxis("Horizontal"); // input player movement (LOCKED TO X AXIS) 
+        if ((Input.GetKeyDown(KeyCode.W) && isGrounded) && (jumpCount > 0))
         {
             isJumping = true;
             jumpCount--;
