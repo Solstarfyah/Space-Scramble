@@ -19,7 +19,7 @@ public class Level3Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ProcessInputs();
     }
 
     private void FlipCharacter()
@@ -32,5 +32,7 @@ public class Level3Movement : MonoBehaviour
     { 
         XmoveDirection = Input.GetAxis("Horizontal");
         YmoveDirection = Input.GetAxis("Vertical");
+        rb.velocity = new Vector2 (XmoveDirection * moveSpeed, YmoveDirection * moveSpeed);
     }
+
 }
