@@ -975,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3826729762295309704, guid: eb21d3cb44be0b2418c3c5f86ab4abca, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4071529971243587570, guid: eb21d3cb44be0b2418c3c5f86ab4abca, type: 3}
       propertyPath: m_Name
       value: Player2
