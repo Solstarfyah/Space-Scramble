@@ -283,8 +283,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownBar: {fileID: 8807134817521442189}
-  countDownTime: 0
-  refillTime: 10
+  countDownTime: 10
+  refillTime: 2
 --- !u!1 &8592330340146410592
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - obstacle
   - oxygen
+  - fuel
   layers:
   - Default
   - TransparentFX

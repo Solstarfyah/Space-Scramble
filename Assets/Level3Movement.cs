@@ -6,16 +6,18 @@ public class Level3Movement : MonoBehaviour
 {
     public float moveSpeed;
     public HealthBarScript healthBar;
+    public CountDownBar oxygen;
+    
     public int maxFuel;
+    public int timeBonus;
 
-    [SerializeField]
-    private float fuelBurnRate;
+    private float fuelBurnRate = 60;
 
     
     private int currentFuel;
     
     private bool isFuel;
-    private bool isMoving; // checks if player is moving forward
+    private bool isMoving = false; // checks if player is moving forward
     
     
     private bool facingRight = true; // sets default player direction 
@@ -31,11 +33,21 @@ public class Level3Movement : MonoBehaviour
         currentFuel = maxFuel;
     }
 
+    private void FixedUpdate()
+    {
+        if (isMoving & isFuel)
+        {
+            currentFuel = currentFuel - ((int)(fuelBurnRate * Time.deltaTime));
+            healthBar.SetHealth(currentFuel);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        checkMovement();
         ProcessInputs();
+        checkMovement();
+
     }
 
     private void FlipCharacter()
@@ -50,12 +62,6 @@ public class Level3Movement : MonoBehaviour
         YmoveDirection = Input.GetAxis("Vertical");
         rb.velocity = new Vector2 (XmoveDirection * moveSpeed, YmoveDirection * moveSpeed);
 
-        if(isMoving && isFuel)
-        {
-            currentFuel -= (int)( fuelBurnRate * Time.deltaTime);
-            Debug.Log(currentFuel);
-            healthBar.SetHealth( currentFuel );
-        }
     }
 
     void OnCollisionEnter2D( UnityEngine.Collision2D col )
@@ -64,6 +70,12 @@ public class Level3Movement : MonoBehaviour
         {
             AddFuel(20);
         }
+        else if (col.gameObject.tag == "oxygen")
+        {
+            AddOxygen(timeBonus);
+        }
+
+        Destroy(col.gameObject);
     }
 
     void AddFuel( int fuelPoints ) 
@@ -71,12 +83,17 @@ public class Level3Movement : MonoBehaviour
         currentFuel += fuelPoints;
         healthBar.SetHealth(currentFuel);
     }
+    
+    void AddOxygen( int oxygenPoints )
+    {
+        oxygen.countdownBar.value += oxygenPoints;
+    }
 
     void checkMovement()
     {
         isMoving = Input.GetKey(KeyCode.D);
         
-        if (currentFuel != 0)
+        if (currentFuel > 0)
         {
             isFuel = true;
         }
