@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SimplifiedPMovementScript : MonoBehaviour
 {
+    [HideInInspector] public float time = 0.0f;
     public Rigidbody2D RB { get; private set; }
 
     public bool IsFacingRight { get; private set; }
@@ -89,6 +90,8 @@ public class SimplifiedPMovementScript : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        time += Time.deltaTime;
+
         #region TIMERS
         LastOnGroundTime -= Time.deltaTime;
         #endregion
