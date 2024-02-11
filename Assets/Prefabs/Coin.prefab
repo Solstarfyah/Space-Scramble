@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2aaec1d70c42a4085407d8c3e6d3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blastPrefab: {fileID: 428949913521091601, guid: ce3f83140b31b2d45ad56e48bf20c945, type: 3}
   speed: 10
   rb: {fileID: 2864389617443566633}
 --- !u!50 &2864389617443566633
@@ -162,4 +163,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6

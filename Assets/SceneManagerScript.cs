@@ -7,6 +7,8 @@ public class SceneManagerScript : MonoBehaviour
 {
     Scene scene;
     public HealthBarScript health; 
+    public CoinCounter coins; 
+    public CountDownBar oxygen;
 
     private bool isPlaying;
     private bool levelDone; 
@@ -15,22 +17,38 @@ public class SceneManagerScript : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-        Debug.Log("Active Scene name is: " + scene.name + "\nActive Scene index: " + scene.buildIndex);
+        DontDestroyOnLoad(gameObject);
         
         isPlaying = true; 
         levelDone = false; 
     }
 
-    void FixedUpdate()
+    void Update()
     {
+        if (scene.name == "Main")
+        {
+            Playing();
+            checkStatus();
+        }
 
+        if (scene.name == "LVL 2-3")
+        {
+            playing1();
+            checkStatus2();
+        }
+        
     }
 
-    private void Playing()
+    private void Playing() // checks to see if the player went down to 0 health or got the req number of coins 
     {
         if (health.slider.value <= 0)
         {
             isPlaying = false;        
+        }
+
+        if (coins.numCoins == 25)
+        {
+            levelDone = true;
         }
         
     }
@@ -39,8 +57,38 @@ public class SceneManagerScript : MonoBehaviour
     {
         if ((isPlaying == false) && (levelDone == false)) // this basically checks to see if the player lost
         {
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
+            SceneManager.LoadScene("gameOver");
         }
+        
+        else if ( (isPlaying == true) && (levelDone == true))
+        {
+            SceneManager.LoadScene("LVL 2-3");
+        }
+
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            isPlaying = true;
+            levelDone = true;
+            SceneManager.LoadScene("LVL 2-3");
+        }
+    }
+
+    private void playing1()
+    {
+        if (oxygen.countdownBar.value <= 0)
+        {
+            isPlaying = false;
+        }
+
+    }
+
+    private void checkStatus2()
+    {
+        if (isPlaying == false)
+        {
+            SceneManager.LoadScene("gameOver");
+        }
+
     }
 
     

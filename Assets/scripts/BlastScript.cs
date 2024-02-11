@@ -7,6 +7,7 @@ public class BlastScript : MonoBehaviour
     private Vector3 mousePos;
     private Camera mainCam;
     private Rigidbody2D rb;
+    private float time = 0.0f;
     public float force;
 
     void Start()
@@ -26,4 +27,15 @@ public class BlastScript : MonoBehaviour
     {
         Destroy(gameObject, 0.001f);
     }
+
+    void Update()
+    {
+        time += Time.deltaTime; 
+        if (time > 5.0f)
+        {
+            Destroy(gameObject, 0.001f);
+        }
+    }
+
+    
 }

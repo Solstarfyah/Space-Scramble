@@ -48,12 +48,4 @@ public class CountDownBar : MonoBehaviour
             allowInputs = true;
         }*/
     }
-
-    void CheckInput()
-    {
-        if (!CountDownBar.allowInputs)
-            return;
-
-        //Your code for handling inputs
-    }
 }
