@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - obstacle
+  - coin
+  - blast
+  - oxygen
+  - fuel
+  - Oxygen Bar
   layers:
   - Default
   - TransparentFX

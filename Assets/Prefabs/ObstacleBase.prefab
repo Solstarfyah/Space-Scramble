@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  coinPrefab: {fileID: 6342855813295594000, guid: 13b3b1fa788b57a4280289d77412c128, type: 3}
   rb: {fileID: 5416937128535938245}
 --- !u!50 &5416937128535938245
 Rigidbody2D:

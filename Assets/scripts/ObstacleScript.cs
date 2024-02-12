@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObstacleScript : MonoBehaviour
 {
     public float speed = 10f;
+    public GameObject coinPrefab; 
     public Rigidbody2D rb;
 
     void Awake()
@@ -15,5 +16,11 @@ public class ObstacleScript : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         Destroy(gameObject, 0.001f);
+        
+        if (collisionInfo.gameObject.tag != "Player")
+        {
+           Instantiate(coinPrefab, gameObject.transform.position, Quaternion.identity);
+        }
+
     }
 }
