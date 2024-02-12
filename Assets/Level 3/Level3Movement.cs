@@ -10,6 +10,14 @@ public class Level3Movement : MonoBehaviour
     
     public int maxFuel;
     public int timeBonus;
+    public int timeDeduction;
+    public int fuelBonus;
+    
+    public Transform sceneTop;
+    public Transform sceneBottom;
+
+    public Transform sceneLeft;
+    public Transform sceneRight;
 
     private float fuelBurnRate = 60;
 
@@ -32,6 +40,7 @@ public class Level3Movement : MonoBehaviour
         healthBar.SetMaxHealth(maxFuel);
         currentFuel = maxFuel;
     }
+
 
     private void FixedUpdate()
     {
@@ -64,15 +73,21 @@ public class Level3Movement : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D( UnityEngine.Collision2D col )
+    void OnCollisionEnter2D( Collision2D col )
     {
         if (col.gameObject.tag == "fuel")
         {
-            AddFuel(20);
+            AddFuel(fuelBonus);
         }
+   
         else if (col.gameObject.tag == "oxygen")
         {
             AddOxygen(timeBonus);
+        }
+      
+        else if (col.gameObject.tag == "obstacle")
+        {
+            AddOxygen(timeDeduction);
         }
 
         Destroy(col.gameObject);
@@ -91,15 +106,19 @@ public class Level3Movement : MonoBehaviour
 
     void checkMovement()
     {
-        isMoving = Input.GetKey(KeyCode.D);
-        
+        isMoving = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S));
+
+
+
         if (currentFuel > 0)
         {
             isFuel = true;
+            moveSpeed = 2;
         }
         else 
         {
             isFuel = false;
+            moveSpeed = 1;
         }
     }
 }

@@ -8,7 +8,7 @@ public class SceneManagerScript : MonoBehaviour
     Scene scene;
     public HealthBarScript health; 
     public CoinCounter coins; 
-    public CountDownBar oxygen;
+    
 
     private bool isPlaying;
     private bool levelDone; 
@@ -25,18 +25,8 @@ public class SceneManagerScript : MonoBehaviour
 
     void Update()
     {
-        if (scene.name == "Main")
-        {
-            Playing();
-            checkStatus();
-        }
-
-        if (scene.name == "LVL 2-3")
-        {
-            playing1();
-            checkStatus2();
-        }
-        
+        Playing();
+        checkStatus();
     }
 
     private void Playing() // checks to see if the player went down to 0 health or got the req number of coins 
@@ -73,23 +63,7 @@ public class SceneManagerScript : MonoBehaviour
         }
     }
 
-    private void playing1()
-    {
-        if (oxygen.countdownBar.value <= 0)
-        {
-            isPlaying = false;
-        }
-
-    }
-
-    private void checkStatus2()
-    {
-        if (isPlaying == false)
-        {
-            SceneManager.LoadScene("gameOver");
-        }
-
-    }
+    
 
     
     /*void OnGUI()

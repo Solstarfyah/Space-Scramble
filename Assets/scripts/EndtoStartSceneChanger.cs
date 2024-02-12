@@ -7,6 +7,6 @@ public class EndtoStartSceneChanger : MonoBehaviour
 {
     public void loadLevelScreen()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("gameStart");
     }
 }
