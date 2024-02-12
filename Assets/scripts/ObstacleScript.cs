@@ -17,7 +17,7 @@ public class ObstacleScript : MonoBehaviour
     {
         Destroy(gameObject, 0.001f);
         
-        if (collisionInfo.gameObject.tag != "Player")
+        if (collisionInfo.gameObject.tag == "blast")
         {
            Instantiate(coinPrefab, gameObject.transform.position, Quaternion.identity);
         }

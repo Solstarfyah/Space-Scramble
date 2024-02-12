@@ -35,6 +35,7 @@ public class PlayerCollisionScript : MonoBehaviour
 
             //increment next_spawn_time
             next_spawn_time += tIncrement;
+            next_spawn_time -= 0.5f;
         }
     }
 

@@ -7,11 +7,13 @@ public class Level3Movement : MonoBehaviour
     public float moveSpeed;
     public HealthBarScript healthBar;
     public CountDownBar oxygen;
+    public CoinCounter toolCounter;
     
     public int maxFuel;
     public int timeBonus;
     public int timeDeduction;
     public int fuelBonus;
+    [HideInInspector] public int numTools;
     
     public Transform sceneTop;
     public Transform sceneBottom;
@@ -88,6 +90,12 @@ public class Level3Movement : MonoBehaviour
         else if (col.gameObject.tag == "obstacle")
         {
             AddOxygen(timeDeduction);
+        }
+
+        else
+        {
+            numTools += 1;
+            toolCounter.numCoins = numTools;
         }
 
         Destroy(col.gameObject);

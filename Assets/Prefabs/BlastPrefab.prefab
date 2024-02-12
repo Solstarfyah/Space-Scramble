@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5633372860117721509}
   m_Layer: 0
   m_Name: BlastPrefab
-  m_TagString: Untagged
+  m_TagString: blast
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
