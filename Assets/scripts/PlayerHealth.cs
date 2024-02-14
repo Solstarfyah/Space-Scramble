@@ -20,7 +20,12 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.tag == "obstacle")
         {
-            TakeDamage(20);
+            bool parried = GetComponent<CombatTypeSystem>().parrying;
+
+            if (parried != true)
+            {
+                TakeDamage(20);
+            }
         }
     }
 
