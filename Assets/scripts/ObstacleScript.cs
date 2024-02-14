@@ -7,6 +7,7 @@ public class ObstacleScript : MonoBehaviour
     public float speed = 10f;
     public GameObject coinPrefab; 
     public Rigidbody2D rb;
+    public CombatTypeSystem parried;
 
     void Awake()
     {
@@ -17,7 +18,7 @@ public class ObstacleScript : MonoBehaviour
     {
         Destroy(gameObject, 0.001f);
         
-        if (collisionInfo.gameObject.tag != "Player")
+        if (collisionInfo.gameObject.tag != "Player" || parried == true)
         {
            Instantiate(coinPrefab, gameObject.transform.position, Quaternion.identity);
         }
