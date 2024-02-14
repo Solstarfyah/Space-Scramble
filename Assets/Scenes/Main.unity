@@ -1467,21 +1467,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pHealth: 3
   rb: {fileID: 6766561902467668400}
-  pFuelBar: 100
+  pFuelBar: 12
   blastOffset: {fileID: 8728137878933061788}
   blastPrefab: {fileID: 498741262}
   RotatePoint: {fileID: 7073462341412484814}
   rotZ: 0
-  force: 0.75
+  force: 1000
   canFire: 0
   blastCD: 0
-  timeBetweenFiring: 0.2
+  timeBetweenFiring: 0.9
   canParry: 0
   parrying: 0
   parried: 0
-  pForce: 25
+  pForce: 750
   timeBetweenParrying: 1
-  parryBuffer: 0.5
+  parryBuffer: 0.2
   parryTimer: 0
   parryCD: 0
 --- !u!114 &651267628880056364
@@ -1502,28 +1502,28 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  gravityStrength: -31.25
-  gravityScale: 3.185525
+  gravityStrength: -28
+  gravityScale: 2.8542302
   fallGravityMult: 1
   maxFallSpeed: 200
-  fastFallGravityMult: 2
+  fastFallGravityMult: 1.1
   maxFastFallSpeed: 400
   runMaxSpeed: 50
-  runAcceleration: 1
-  runAccelAmount: 1
-  runDecceleration: 0.5
-  runDeccelAmount: 0.5
-  accelInAir: 0.52
-  deccelInAir: 0.37
+  runAcceleration: 1.5
+  runAccelAmount: 1.5
+  runDecceleration: 1
+  runDeccelAmount: 1
+  accelInAir: 0.095
+  deccelInAir: 0.095
   dontConserveMomentum: 1
-  jumpHeight: 10
-  jumpTimeToApex: 0.8
-  jumpForce: 25
-  jumpCutGravityMult: 1.5
-  jumpHangGravityMult: 0.36
+  jumpHeight: 14
+  jumpTimeToApex: 1
+  jumpForce: 28
+  jumpCutGravityMult: 1.05
+  jumpHangGravityMult: 0.248
   jumpHangTimeThreshold: 6
-  jumpHangAccelerationMult: 0.5
-  jumpHangMaxSpeedMult: 2
+  jumpHangAccelerationMult: 0.1
+  jumpHangMaxSpeedMult: 1
   coyoteTime: 0.093
   jumpInputBufferTime: 0.103
 --- !u!1 &796963480388710438
