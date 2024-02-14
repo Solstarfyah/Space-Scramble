@@ -9,6 +9,7 @@ public class CombatTypeSystem : MonoBehaviour
 {
     float nextFire;
     Vector3 rotation;
+    float pTimer = 0;
 
     [Header("Both")]
     public int pHealth = 3;
@@ -47,6 +48,7 @@ public class CombatTypeSystem : MonoBehaviour
     {
         parrying = false;
         canParry = true;
+        parried = false;
     }
 
     // Update is called once per frame
@@ -141,7 +143,6 @@ public class CombatTypeSystem : MonoBehaviour
 
         if (Input.GetKey("f") && canParry)
         {
-            parried = false;
             parryTimer += Time.deltaTime;
             if (parryTimer <= parryBuffer)
             {
@@ -156,6 +157,16 @@ public class CombatTypeSystem : MonoBehaviour
                 canParry = false;
             }
 
+        }
+
+        if (parried == true)
+        {
+            pTimer += Time.deltaTime;
+            if (pTimer >= 0.5)
+            {
+                parried = false;
+                pTimer = 0;
+            }
         }
     }
 
@@ -172,6 +183,7 @@ public class CombatTypeSystem : MonoBehaviour
             {
                 rb.AddForce(Vector2.up * pForce, ForceMode2D.Force);
                 pFuelBar += 1;
+                pTimer += Time.deltaTime;
                 parried = true;
             }
         }
