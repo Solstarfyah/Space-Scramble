@@ -7,9 +7,9 @@ public class SceneManagerScript : MonoBehaviour
 {
     Scene scene;
     public HealthBarScript health; 
-    public CoinCounter coins; 
-    
+    public CoinCounter coins;
 
+    public string nextScene;
     private bool isPlaying;
     private bool levelDone; 
 
@@ -52,15 +52,15 @@ public class SceneManagerScript : MonoBehaviour
         
         else if ( (isPlaying == true) && (levelDone == true))
         {
-            SceneManager.LoadScene("LVL 2-3");
+            SceneManager.LoadScene(nextScene);
         }
 
-        else if (Input.GetKeyDown(KeyCode.N))
+        /*else if (Input.GetKeyDown(KeyCode.N))
         {
             isPlaying = true;
             levelDone = true;
             SceneManager.LoadScene("LVL 2-3");
-        }
+        }*/
     }
 
     

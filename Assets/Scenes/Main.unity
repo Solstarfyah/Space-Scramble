@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 687059076}
   coins: {fileID: 687059081}
+  nextScene: 1-2 Transition
 --- !u!4 &359457007
 Transform:
   m_ObjectHideFlags: 0

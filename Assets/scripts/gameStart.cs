@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class gameStart : MonoBehaviour
 {
+    public string nextScene;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene(nextScene);
         }
     }
 

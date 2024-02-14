@@ -5,11 +5,13 @@ using UnityEngine;
 public class ToolSpawner : MonoBehaviour
 {
     public GameObject game_area;
-    public GameObject toolPrefab;
+    public List<GameObject> objectPrefabs = new List<GameObject>();
+    private GameObject toolPrefab; // tool prefab == any random game object
 
     public int toolCount = 0;
     public int toolLimit = 20;
     public int toolsPerFrame = 1;
+    public int randNum;
 
     public float spawn_circle_radius = 50.0f;
     public float death_circle_radius = 60.0f;
@@ -19,6 +21,7 @@ public class ToolSpawner : MonoBehaviour
 
     void Start()
     {
+        toolPrefab = objectPrefabs[0];
         InitialPopulation();
     
     }
@@ -28,7 +31,7 @@ public class ToolSpawner : MonoBehaviour
         for (int i = 0; i < toolLimit; i++)
         {
             Vector3 position = GetRandomPosition(true);
-            Tool ToolScript = AddTool(position);
+            Tool ToolScript = AddTool(position, toolPrefab);
             ToolScript.transform.Rotate(Vector3.forward * Random.Range(0f, 360f));
 
         }
@@ -37,16 +40,31 @@ public class ToolSpawner : MonoBehaviour
     void Update()
     {
         MaintainPopulation();
+
+        randNum = Random.Range(0, objectPrefabs.Count);
+
+        // Set toolPrefab based on randNum
+        if (randNum >= 0 && randNum < objectPrefabs.Count)
+        {
+            toolPrefab = objectPrefabs[randNum];
+        }
+        else
+        {
+            Debug.LogError("Invalid randNum generated!");
+        }
     }
 
-    void MaintainPopulation() // makes sure there are no more than the max amnt of tools 
+    void MaintainPopulation()
     {
         if (toolCount < toolLimit)
         {
             for (int i = 0; i < toolsPerFrame; i++)
             {
                 Vector3 position = GetRandomPosition(false);
-                Tool ToolScript = AddTool(position);
+
+                // Pass the prefab directly to AddTool
+                Tool ToolScript = AddTool(position, toolPrefab);
+
                 ToolScript.transform.Rotate(Vector3.forward * Random.Range(-45.0f, 45.0f));
             }
         }
@@ -67,15 +85,15 @@ public class ToolSpawner : MonoBehaviour
         return position;
     }
 
-    Tool AddTool(Vector3 position)
+    Tool AddTool(Vector3 position, GameObject prefab)
     {
         toolCount += 1;
         GameObject newTool = Instantiate(
-            toolPrefab,
-            position, 
-            Quaternion.FromToRotation(Vector3.up, (game_area.transform.position - position)), 
+            prefab,
+            position,
+            Quaternion.FromToRotation(Vector3.up, (game_area.transform.position - position)),
             gameObject.transform
-            );
+        );
 
         Tool ToolScript = newTool.GetComponent<Tool>();
         ToolScript.ToolSpawner = this;

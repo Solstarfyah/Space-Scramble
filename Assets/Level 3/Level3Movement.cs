@@ -22,6 +22,7 @@ public class Level3Movement : MonoBehaviour
     public Transform sceneRight;
 
     private float fuelBurnRate = 60;
+    private float currentSpeed;
 
     
     private int currentFuel;
@@ -39,6 +40,11 @@ public class Level3Movement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>(); // looks for Rigidbody 2D component
+        
+    }
+
+    private void Start()
+    {
         healthBar.SetMaxHealth(maxFuel);
         currentFuel = maxFuel;
     }
@@ -71,7 +77,7 @@ public class Level3Movement : MonoBehaviour
     { 
         XmoveDirection = Input.GetAxis("Horizontal");
         YmoveDirection = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2 (XmoveDirection * moveSpeed, YmoveDirection * moveSpeed);
+        rb.velocity = new Vector2 (XmoveDirection * currentSpeed, YmoveDirection * currentSpeed);
 
     }
 
@@ -89,7 +95,7 @@ public class Level3Movement : MonoBehaviour
       
         else if (col.gameObject.tag == "obstacle")
         {
-            AddOxygen(timeDeduction);
+            AddOxygen(-timeDeduction);
         }
 
         else
@@ -105,6 +111,7 @@ public class Level3Movement : MonoBehaviour
     {
         currentFuel += fuelPoints;
         healthBar.SetHealth(currentFuel);
+        Debug.Log("Player got fuel");
     }
     
     void AddOxygen( int oxygenPoints )
@@ -116,17 +123,15 @@ public class Level3Movement : MonoBehaviour
     {
         isMoving = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S));
 
-
-
         if (currentFuel > 0)
         {
             isFuel = true;
-            moveSpeed = 2;
+            currentSpeed = moveSpeed;
         }
         else 
         {
             isFuel = false;
-            moveSpeed = 1;
+            currentSpeed = moveSpeed - 1;
         }
     }
 }

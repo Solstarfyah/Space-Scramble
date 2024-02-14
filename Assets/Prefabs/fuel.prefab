@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 43449552713614014}
   - component: {fileID: 7936332341322183900}
   - component: {fileID: 3661727723123553537}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: fuel
   m_TagString: fuel
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &43449552713614014
 SpriteRenderer:
@@ -143,6 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7753d0638bc0153478c2cb41a583e400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToolSpawner: {fileID: 0}
-  game_area: {fileID: 0}
+  ToolSpawner: {fileID: 2459619472486549953, guid: 31abbe56038675f4e881013fd9efdf8c, type: 3}
+  game_area: {fileID: 4385904979883598206, guid: c7a71f05a87067946a4df43e6ad0a4a0, type: 3}
   speed: 0.5
