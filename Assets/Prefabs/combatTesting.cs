@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 
-public class CombatTypeSystem : MonoBehaviour
-{
 
-    private Camera mainCam;
-    private Vector3 mousePos;
+
+public class combatTesting : MonoBehaviour
+{
+    float nextFire;
+    Vector3 rotation;
 
     [Header("Both")]
     public int pHealth = 3;
@@ -16,10 +17,11 @@ public class CombatTypeSystem : MonoBehaviour
     [Space(5)]
 
     [Header("Blast Settings")]
-    
+
     public Transform blastOffset;
     public GameObject blastPrefab;
     public Transform RotatePoint;
+    public float rotZ = 0;
     public float force;
     [Space(5)]
 
@@ -37,12 +39,11 @@ public class CombatTypeSystem : MonoBehaviour
     public float parryBuffer;
     public float parryTimer = 0;
     public float parryCD = 0;
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         parried = false;
         canParry = true;
     }
@@ -50,11 +51,58 @@ public class CombatTypeSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3 rotation = mousePos - RotatePoint.transform.position;
+        if (Input.GetKey("s") && Input.GetKey("a"))
+        {
+            rotZ = 225;
+            rotation = Vector3.down + Vector3.left;
+        }
 
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        else if (Input.GetKey("s"))
+        {
+            rotZ = 270;
+            rotation = Vector3.down;
+        }
+
+        else if (Input.GetKey("a"))
+        {
+            rotZ = 180;
+            rotation = Vector3.left;
+        }
+
+        if (Input.GetKey("a") && Input.GetKey("w"))
+        {
+            rotZ = 135;
+            rotation = Vector3.up + Vector3.left;
+
+        }
+
+        else if (Input.GetKey("w"))
+        {
+            rotZ = 90;
+            rotation = Vector3.up;
+        }
+
+        if (Input.GetKey("d") && Input.GetKey("s"))
+        {
+            rotZ = 315;
+            rotation = Vector3.down + Vector3.right;
+
+        }
+        else if (Input.GetKey("d"))
+        {
+            rotZ = 0;
+            rotation = Vector3.right;
+
+        }
+
+        if (Input.GetKey("d") && Input.GetKey("w"))
+        {
+            rotZ = 45;
+            rotation = Vector3.up + Vector3.right;
+
+        }
+
 
         RotatePoint.transform.rotation = Quaternion.Euler(0, 0, rotZ);
 
@@ -67,14 +115,14 @@ public class CombatTypeSystem : MonoBehaviour
                 blastCD = 0;
             }
         }
-        if (Input.GetMouseButton(0) && canFire)
+        if (Input.GetKey("e") && canFire)
         {
             if (pFuelBar >= 1 && canFire == true)
             {
                 canFire = false;
                 blastCD = 0;
                 Instantiate(blastPrefab, blastOffset.position, Quaternion.identity);
-                rb.AddForce(-rotation * force, ForceMode2D.Impulse);
+                rb.AddForce(-rotation * force, ForceMode2D.Force);
                 pFuelBar -= 1;
             }
         }
@@ -119,8 +167,8 @@ public class CombatTypeSystem : MonoBehaviour
         {
             if (collisionInfo.collider.name == "ObstacleBase(Clone)")
             {
-                rb.AddForce(Vector2.up * pForce, ForceMode2D.Impulse);
-                pFuelBar += 10;
+                rb.AddForce(Vector2.up * pForce, ForceMode2D.Force);
+                pFuelBar += 1;
             }
         }
     }

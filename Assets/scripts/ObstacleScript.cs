@@ -13,13 +13,23 @@ public class ObstacleScript : MonoBehaviour
         rb.velocity = new Vector2(-speed, 0);
     }
 
+
     private void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         Destroy(gameObject, 0.001f);
         
-        if (collisionInfo.gameObject.tag == "blast")
+        if (collisionInfo.gameObject.tag == "Player")
         {
-           Instantiate(coinPrefab, gameObject.transform.position, Quaternion.identity);
+            bool parried = collisionInfo.gameObject.GetComponent<CombatTypeSystem>().parrying;
+            if (parried == true)
+            {
+                Instantiate(coinPrefab, gameObject.transform.position, Quaternion.identity);
+            }
+        }
+
+        else if (collisionInfo.gameObject.tag != "Player")
+        {
+            Instantiate(coinPrefab, gameObject.transform.position, Quaternion.identity);
         }
 
     }
