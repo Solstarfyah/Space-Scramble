@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level3Movement : MonoBehaviour
 {
@@ -65,6 +66,7 @@ public class Level3Movement : MonoBehaviour
         ProcessInputs();
         checkMovement();
 
+       
     }
 
     private void FlipCharacter()
@@ -128,10 +130,11 @@ public class Level3Movement : MonoBehaviour
             isFuel = true;
             currentSpeed = moveSpeed;
         }
+        
         else 
         {
             isFuel = false;
-            currentSpeed = moveSpeed - 1;
+            currentSpeed = moveSpeed / 2;
         }
     }
 }

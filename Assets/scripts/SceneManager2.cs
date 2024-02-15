@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class SceneManager2 : MonoBehaviour
 {
     public CountDownBar oxygen;
+    public CoinCounter toolCounter;
+
 
     private bool isPlaying;
+    private bool levelComplete;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +33,21 @@ public class SceneManager2 : MonoBehaviour
             isPlaying = false;
         }
 
+        if (toolCounter.numCoins >= 15)
+        {
+            levelComplete = true;
+        }
+
     }
 
     private void CheckStatus()
     {
         if (isPlaying == false)
+        {
+            SceneManager.LoadScene("gameOver");
+        }
+
+        if (levelComplete)
         {
             SceneManager.LoadScene("gameOver");
         }

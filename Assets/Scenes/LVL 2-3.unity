@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 339957083}
   - component: {fileID: 339957082}
   - component: {fileID: 339957081}
-  - component: {fileID: 339957085}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -203,7 +202,7 @@ Camera:
   m_GameObject: {fileID: 339957079}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -260,20 +259,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &339957085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339957079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d933ae79339af2449781f704e2e5dd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  bgRenderer: {fileID: 474668825}
 --- !u!1 &351297740
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,11 +399,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4385904979883598206, guid: c7a71f05a87067946a4df43e6ad0a4a0, type: 3}
   m_PrefabInstance: {fileID: 5536179571337553765}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &474668825 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 5993800937446255564, guid: c7a71f05a87067946a4df43e6ad0a4a0, type: 3}
-  m_PrefabInstance: {fileID: 5536179571337553765}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &648701024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -449,7 +429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2386490313563469218, guid: eb21d3cb44be0b2418c3c5f86ab4abca, type: 3}
       propertyPath: timeBonus
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2386490313563469218, guid: eb21d3cb44be0b2418c3c5f86ab4abca, type: 3}
       propertyPath: toolCounter
@@ -645,12 +625,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6347943123234955672, guid: 34c446c16a652944ea23db29a530edce, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30.2502
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347943123234955672, guid: 34c446c16a652944ea23db29a530edce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 222
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6347943123234955672, guid: 34c446c16a652944ea23db29a530edce, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -118
+      value: 81
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -785,12 +769,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8240229251244670292, guid: eb4dd1154f0f78d4d9e26fe0be9b348c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 255.9709
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240229251244670292, guid: eb4dd1154f0f78d4d9e26fe0be9b348c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 29.328
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240229251244670292, guid: eb4dd1154f0f78d4d9e26fe0be9b348c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 229.70386
       objectReference: {fileID: 0}
     - target: {fileID: 8240229251244670292, guid: eb4dd1154f0f78d4d9e26fe0be9b348c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 151
+      value: 123.243706
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -937,6 +929,10 @@ PrefabInstance:
       propertyPath: oxygen
       value: 
       objectReference: {fileID: 1343510050}
+    - target: {fileID: 5329521258663568916, guid: 31abbe56038675f4e881013fd9efdf8c, type: 3}
+      propertyPath: toolCounter
+      value: 
+      objectReference: {fileID: 1343510054}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -998,6 +994,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: starry bg 2.0
       objectReference: {fileID: 0}
+    - target: {fileID: 5993800937446255564, guid: c7a71f05a87067946a4df43e6ad0a4a0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 360de591e5a0f1e4e82b901214813666, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

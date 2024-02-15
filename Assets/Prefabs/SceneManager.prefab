@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5329521258663568916
 MonoBehaviour:
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oxygen: {fileID: 0}
+  toolCounter: {fileID: 0}
 --- !u!114 &2459619472486549953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8ff796faffd974bb7b493311f801a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_area: {fileID: 0}
+  game_area: {fileID: 4385904979883598206, guid: c7a71f05a87067946a4df43e6ad0a4a0, type: 3}
   objectPrefabs:
   - {fileID: 3040797548346451694, guid: e3fb32d33759199429390e3c0878d97c, type: 3}
   - {fileID: 3717123500252364935, guid: 1deb24ba93b27f943a750e79cb34e77b, type: 3}

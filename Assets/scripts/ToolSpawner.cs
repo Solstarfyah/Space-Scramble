@@ -48,10 +48,6 @@ public class ToolSpawner : MonoBehaviour
         {
             toolPrefab = objectPrefabs[randNum];
         }
-        else
-        {
-            Debug.LogError("Invalid randNum generated!");
-        }
     }
 
     void MaintainPopulation()
